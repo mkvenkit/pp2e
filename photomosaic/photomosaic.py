@@ -207,7 +207,7 @@ def createPhotomosaic(target_image, input_images, grid_size,
     for match_index in match_indices:
         output_images.append(input_images[match_index])
         # user feedback
-        if count > 0 and batch_size > 10 and count % batch_size is 0:
+        if count > 0 and batch_size > 10 and count % batch_size == 0:
           print('processed %d of %d...' %(count, len(target_images)))
         count += 1
         # remove selected image from input if flag set
@@ -222,7 +222,7 @@ def createPhotomosaic(target_image, input_images, grid_size,
         match_index = getBestMatchIndex(avg, avgs)
         output_images.append(input_images[match_index])
         # user feedback
-        if count > 0 and batch_size > 10 and count % batch_size is 0:
+        if count > 0 and batch_size > 10 and count % batch_size == 0:
           print('processed %d of %d...' %(count, len(target_images)))
         count += 1
         # remove selected image from input if flag set
