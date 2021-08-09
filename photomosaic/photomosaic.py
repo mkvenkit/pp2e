@@ -117,21 +117,10 @@ def getBestMatchIndex(input_avg, avgs):
 
   return min_index
 
-def getBestMatchIndexKDT(avg, avgs, kdtree):
+def getBestMatchIndicesKDT(qavgs, kdtree):
     """
-    return index of best Image match based on RGB value distance.
-    Used a k-d tree.
-    """
-    # eg. [array([2.]), array([9], dtype=int64)]
-    res = list(kdtree.query([avg], k=1))
-    #print("res: ", res)
-    min_index = res[1][0]
-    return min_index
-
-def getBestMatchIndicesKDT(qavgs, avgs, kdtree):
-    """
-    return index of best Image match based on RGB value distance.
-    Used a k-d tree.
+    return indices of best Image matches based on RGB value distance.
+    Uses a k-d tree.
     """
     # eg. [array([2.]), array([9], dtype=int64)]
     res = list(kdtree.query(qavgs, k=1))
@@ -188,20 +177,19 @@ def createPhotomosaic(target_image, input_images, grid_size,
   for img in input_images:
     avgs.append(getAverageRGB(img))
 
+  # compute target averages 
+  avgs_target = []
+  for img in target_images:
+    # target sub-image average
+    avg = getAverageRGB(img)
+    avgs_target.append(avg)
+  
   # use k-d tree for average match?
   if use_kdt:
     # create k-d tree
     kdtree = KDTree(avgs)
-
-    # compute target averages 
-    avgs_target = []
-    for img in target_images:
-        # target sub-image average
-        avg = getAverageRGB(img)
-        avgs_target.append(avg)
-
     # query k-d tree
-    match_indices = getBestMatchIndicesKDT(avgs_target, avgs, kdtree)
+    match_indices = getBestMatchIndicesKDT(avgs_target, kdtree)
 
     # process matches
     for match_index in match_indices:
@@ -215,9 +203,7 @@ def createPhotomosaic(target_image, input_images, grid_size,
           input_images.remove(match)
   else:
     # use linear search
-    for img in target_images:
-        # target sub-image average
-        avg = getAverageRGB(img)
+    for avg in avgs_target:
         # find match index
         match_index = getBestMatchIndex(avg, avgs)
         output_images.append(input_images[match_index])
@@ -312,6 +298,9 @@ def main():
     for img in input_images:
       img.thumbnail(dims)
 
+  # setup time
+  t1 = timeit.default_timer()
+
   # create photomosaic
   mosaic_image = createPhotomosaic(target_image, input_images, grid_size,
                                    reuse_images, use_kdt)
@@ -321,9 +310,13 @@ def main():
 
   print("saved output to %s" % (output_filename,))
   print('done.')
-  stop = timeit.default_timer()
-  print('Execution time: %f seconds' % (stop - start, ))
+  
+  # creation time
+  t2 = timeit.default_timer()
 
+  print('Execution time:    setup: %f seconds' % (t1 - start, ))
+  print('Execution time: creation: %f seconds' % (t2 - t1, ))
+  print('Execution time:    total: %f seconds' % (t2 - start, ))
 
 # Standard boilerplate to call the main() function to begin
 # the program.
