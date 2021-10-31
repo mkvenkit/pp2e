@@ -1,0 +1,47 @@
+/* 
+
+style.css 
+
+CSS for iotgarden web page.
+
+Author: Mahesh Venkitachalam
+
+*/
+
+html { 
+    background-color: gray; 
+} 
+body {
+    min-height: 100vh;
+    max-width: 800px;
+    background-color: #444444; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+}
+
+h1 {
+    color: #aaaaaa;
+    font-family: "Times New Roman", Times, serif;
+}
+
+#title {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 40px;
+    text-align: center;
+}
+
+.thdata {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    color: #aaaaaa;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin: auto;
+}
+
+.imdiv {
+    display: flex;
+    justify-content: center;
+}
