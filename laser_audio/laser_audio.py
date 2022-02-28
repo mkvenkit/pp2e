@@ -191,6 +191,12 @@ def process_audio(filename):
     # print audio details 
     print("SW = {}, NCh = {}, SR = {}".format(wf.getsampwidth(), 
         wf.getnchannels(), wf.getframerate()))
+    
+    # check for supported format
+    if wf.getsampwidth() != 2 or wf.getnchannels() != 1:
+        print("Only single channel 16 bit WAV files are supported!")
+        wf.close()
+        return
 
     # create PyAudio object
     p = pyaudio.PyAudio()
@@ -226,9 +232,6 @@ def process_audio(filename):
                 # do FFT 
                 fft = np.fft.rfft(buf)
                 fft = np.abs(fft) * 2.0/N
-                #fft = fft*fft
-                #fft = 10*np.log10(fft)
-                freqs = np.fft.rfftfreq(N, 1./SR)
                 # calc levels
                 # get average of 3 frequency bands
                 # 0-100 Hz, 100-1000 Hz and 1000-2500 Hz
@@ -258,6 +261,8 @@ def process_audio(filename):
             stream.close()
             # stop motors
             stop_motors()
+            # close WAV file
+            wf.close()
 
 
 def main():
