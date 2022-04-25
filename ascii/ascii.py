@@ -31,7 +31,7 @@ def getAverageL(image):
     # get average
     return np.average(im.reshape(w*h))
 
-def covertImageToAscii(fileName, cols, scale, moreLevels):
+def convertImageToAscii(fileName, cols, scale, moreLevels):
     """
     Given Image and dims (rows, cols) returns an m*n list of Images 
     """
@@ -121,7 +121,7 @@ def main():
 
     print('generating ASCII art...')
     # convert image to ascii txt
-    aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels)
+    aimg = convertImageToAscii(imgFile, cols, scale, args.moreLevels)
 
     # open file
     f = open(outFile, 'w')
