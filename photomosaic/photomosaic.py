@@ -181,8 +181,7 @@ def createPhotomosaic(target_image, input_images, grid_size,
   avgs_target = []
   for img in target_images:
     # target sub-image average
-    avg = getAverageRGB(img)
-    avgs_target.append(avg)
+    avgs_target.append(getAverageRGB(img))
   
   # use k-d tree for average match?
   if use_kdt:
