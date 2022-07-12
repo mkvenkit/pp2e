@@ -193,13 +193,6 @@ def createPhotomosaic(target_image, input_images, grid_size,
     # process matches
     for match_index in match_indices:
         output_images.append(input_images[match_index])
-        # user feedback
-        if count > 0 and batch_size > 10 and count % batch_size == 0:
-          print('processed %d of %d...' %(count, len(target_images)))
-        count += 1
-        # remove selected image from input if flag set
-        if not reuse_images:
-          input_images.remove(match)
   else:
     # use linear search
     for avg in avgs_target:
@@ -208,7 +201,7 @@ def createPhotomosaic(target_image, input_images, grid_size,
         output_images.append(input_images[match_index])
         # user feedback
         if count > 0 and batch_size > 10 and count % batch_size == 0:
-          print('processed %d of %d...' %(count, len(target_images)))
+          print('processed {} of {}...'.format(count, len(target_images)))
         count += 1
         # remove selected image from input if flag set
         if not reuse_images:
