@@ -6,12 +6,12 @@ Implementation of Craig Reynold's BOIDs
 Author: Mahesh Venkitachalam
 """
 
-import sys, argparse
+import argparse
 import math
 import numpy as np
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation
-from scipy.spatial.distance import squareform, pdist, cdist
+from scipy.spatial.distance import squareform, pdist
 from numpy.linalg import norm
 
 width, height = 640, 480
@@ -112,7 +112,6 @@ class Boids:
             self.vel += 0.1*(self.pos - np.array([[event.xdata, event.ydata]]))
         
 def tick(frameNum, pts, beak, boids):
-    # print frameNum
     """update function for animation"""
     boids.tick(frameNum, pts, beak)
     return pts, beak
@@ -141,11 +140,10 @@ def main():
 
   pts = ax.plot([], [], markersize=10, 
                   c='k', marker='o', ls='None')
-  print(pts)
 
   beak, = ax.plot([], [], markersize=4, 
                   c='r', marker='o', ls='None')
-  anim = animation.FuncAnimation(fig, tick, fargs=(pts, beak, boids), 
+  anim = animation.FuncAnimation(fig, tick, fargs=(pts[0], beak, boids), 
                                  interval=50)
 
   # add a "button press" event handler
