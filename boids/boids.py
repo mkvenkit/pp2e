@@ -33,7 +33,7 @@ class Boids:
         # max maginitude of final velocity
         self.maxVel = 2.0
 
-    def tick(self, frameNum, pts, beak):
+    def tick(self, frameNum, pts, head):
         """Update the simulation by one time step."""
         # get pairwise distances
         self.distMatrix = squareform(pdist(self.pos))
@@ -46,7 +46,7 @@ class Boids:
         pts.set_data(self.pos.reshape(2*self.N)[::2], 
                      self.pos.reshape(2*self.N)[1::2])
         vec = self.pos + 10*self.vel/self.maxVel
-        beak.set_data(vec.reshape(2*self.N)[::2], 
+        head.set_data(vec.reshape(2*self.N)[::2], 
                       vec.reshape(2*self.N)[1::2])
 
     def limitVec(self, vec, maxVal):
@@ -111,10 +111,10 @@ class Boids:
             # add scattering velocity 
             self.vel += 0.1*(self.pos - np.array([[event.xdata, event.ydata]]))
         
-def tick(frameNum, pts, beak, boids):
+def tick(frameNum, pts, head, boids):
     """update function for animation"""
-    boids.tick(frameNum, pts, beak)
-    return pts, beak
+    boids.tick(frameNum, pts, head)
+    return pts, head
 
 # main() function
 def main():
@@ -141,9 +141,9 @@ def main():
   pts = ax.plot([], [], markersize=10, 
                   c='k', marker='o', ls='None')
 
-  beak, = ax.plot([], [], markersize=4, 
+  head, = ax.plot([], [], markersize=4, 
                   c='r', marker='o', ls='None')
-  anim = animation.FuncAnimation(fig, tick, fargs=(pts[0], beak, boids), 
+  anim = animation.FuncAnimation(fig, tick, fargs=(pts[0], head, boids), 
                                  interval=50)
 
   # add a "button press" event handler
