@@ -35,8 +35,6 @@ class Boids:
 
     def tick(self, frameNum, pts, head):
         """Update the simulation by one time step."""
-        # get pairwise distances
-        self.distMatrix = squareform(pdist(self.pos))
         # apply rules:
         self.vel += self.applyRules()
         self.limit(self.vel, self.maxVel)
@@ -74,8 +72,10 @@ class Boids:
                 coord[1] = height + deltaR
     
     def applyRules(self):
+        # get pairwise distances
+        self.distMatrix = squareform(pdist(self.pos))
         # apply rule #1 - Separation
-        D = self.distMatrix < 25.0
+        D = self.distMatrix < self.minDist
         vel = self.pos*D.sum(axis=1).reshape(self.N, 1) - D.dot(self.pos)
         self.limit(vel, self.maxRuleVel)
 
