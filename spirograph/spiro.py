@@ -181,7 +181,7 @@ def saveDrawing():
     # generate unique file name
     dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
     fileName = 'spiro-' + dateStr 
-    print('saving drawing to %s.eps/png' % fileName)
+    print('saving drawing to {}.eps/png'.format(fileName))
     # get tkinter canvas
     canvas = turtle.getcanvas()
     # save postscipt image
