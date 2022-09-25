@@ -53,6 +53,25 @@ def generate_note(freq):
 
     return samples 
 
+# generate note of given frequency - improved method
+def generate_note2(freq):
+    nSamples = SR
+    sampleRate = SR
+    N = int(sampleRate/freq)
+    # initialize ring buffer
+    buf = [2*random.random() - 1 for i in range(N)]
+
+    # init sample buffer
+    samples = array.array('h', [0]*nSamples)
+    start = 0
+    for i in range(nSamples):
+        samples[i] = int(buf[start] * (2**15 - 1))
+        avg = 0.4975*(buf[start] + buf[(start + 1) % N])
+        buf[(start + N) % N] = avg
+        start = (start + 1) % N
+
+    return samples 
+
 def play_note(note, audio_out):
     "Read note from file and send via I2S"
     fname = note[0] + ".bin"
