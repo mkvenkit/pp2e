@@ -37,7 +37,7 @@ def timed_function(f, *args, **kwargs):
 
 # generate note of given frequency
 # @timed_function 
-def generateNote(freq):
+def generate_note(freq):
     nSamples = SR
     N = int(SR/freq)
     # initialize ring buffer
@@ -50,25 +50,6 @@ def generateNote(freq):
         avg = 0.4975*(buf[0] + buf[1])
         buf.append(avg)
         buf.pop(0)
-
-    return samples 
-
-# generate note of given frequency - improved method
-def generateNote2(freq):
-    nSamples = SR
-    sampleRate = SR
-    N = int(sampleRate/freq)
-    # initialize ring buffer
-    buf = [2*random.random() - 1 for i in range(N)]
-
-    # init sample buffer
-    samples = array.array('h', [0]*nSamples)
-    start = 0
-    for i in range(nSamples):
-        samples[i] = int(buf[start] * (2**15 - 1))
-        avg = 0.4975*(buf[start] + buf[(start + 1) % N])
-        buf[(start + N) % N] = avg
-        start = (start + 1) % N
 
     return samples 
 
