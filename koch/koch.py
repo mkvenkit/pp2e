@@ -9,10 +9,9 @@ Author: Mahesh Venkitachalam
 Website: electronut.in
 """
 
-import time
 import turtle
 import math
-import sys, argparse
+from unittest import expectedFailure
 
 # draw the recursive Koch snowflake
 def drawKochSF(x1, y1, x2, y2, t):
@@ -58,12 +57,18 @@ def main():
     t = turtle.Turtle()
     t.hideturtle()
 
-    # draw 
-    drawKochSF(-100, 0, 100, 0, t)
-    drawKochSF(0, -173.2, -100, 0, t)
-    drawKochSF(100, 0, 0, -173.2, t)
-
     win = turtle.Screen()
+
+    # draw 
+    try:
+        drawKochSF(-100, 0, 100, 0, t)
+        drawKochSF(0, -173.2, -100, 0, t)
+        drawKochSF(100, 0, 0, -173.2, t)
+    except:
+        print("Exception, exiting.")
+        return
+
+    # wait for user to click on screen to exit
     win.exitonclick()
 
 # call main
