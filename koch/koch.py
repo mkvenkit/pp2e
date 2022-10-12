@@ -64,7 +64,7 @@ def main():
         drawKochSF(100, 0, 0, -173.2, t)
     except:
         print("Exception, exiting.")
-        return
+        exit(0)
 
     # wait for user to click on screen to exit
     turtle.Screen().exitonclick()
