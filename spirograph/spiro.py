@@ -7,7 +7,7 @@ Author: Mahesh Venkitachalam
 Website: electronut.in
 """
 
-import sys, random, argparse
+import random, argparse
 import numpy as np
 import math
 import turtle
