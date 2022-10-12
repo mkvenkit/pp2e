@@ -14,7 +14,6 @@ import turtle
 import random
 from PIL import Image
 from datetime import datetime    
-from fractions import gcd
 
 # A class that draws a spirograph
 class Spiro:
@@ -46,7 +45,7 @@ class Spiro:
         self.l = l
         self.col = col
         # reduce r/R to smallest form by dividing with GCD
-        gcdVal = gcd(self.r, self.R)
+        gcdVal = math.gcd(self.r, self.R)
         self.nRot = self.r//gcdVal
         # get ratio of radii
         self.k = r/float(R)
@@ -67,7 +66,11 @@ class Spiro:
         a = 0.0
         x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
         y = R*((1-k)*math.sin(a) - l*k*math.sin((1-k)*a/k))
-        self.t.setpos(self.xc + x, self.yc + y)
+        try:
+            self.t.setpos(self.xc + x, self.yc + y)
+        except:
+            print("Exception, exiting.")
+            exit(0)
         self.t.down()
 
     # draw the whole thing
@@ -78,7 +81,11 @@ class Spiro:
             a = math.radians(i)
             x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
             y = R*((1-k)*math.sin(a) - l*k*math.sin((1-k)*a/k))
-            self.t.setpos(self.xc + x, self.yc + y)
+            try:
+                self.t.setpos(self.xc + x, self.yc + y)
+            except:
+                print("Exception, exiting.")
+                exit(0)
         # done - hide turtle
         self.t.hideturtle()
     
@@ -95,7 +102,11 @@ class Spiro:
         a = math.radians(self.a)
         x = self.R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
         y = self.R*((1-k)*math.sin(a) - l*k*math.sin((1-k)*a/k))
-        self.t.setpos(self.xc + x, self.yc + y)
+        try:
+            self.t.setpos(self.xc + x, self.yc + y)
+        except:
+            print("Exception, exiting.")
+            exit(0)
         # check if drawing is complete and set flag
         if self.a >= 360*self.nRot:
             self.drawingComplete = True
@@ -104,6 +115,9 @@ class Spiro:
 
     # clear everything
     def clear(self):
+        # pen up
+        self.t.up()
+        # clear turtle 
         self.t.clear()
 
 # A class for animating spirographs
@@ -115,6 +129,8 @@ class SpiroAnimator:
         # get window dimensions
         self.width = turtle.window_width()
         self.height = turtle.window_height()
+        # restarting
+        self.restarting = False
         # create spiro objects
         self.spiros = []
         for i in range(N):
@@ -128,6 +144,12 @@ class SpiroAnimator:
     
     # restart sprio drawing
     def restart(self):
+        # ignore restart if already in the middle of restarting
+        if self.restarting:
+            return
+        else:
+            self.restarting = True
+        # restart
         for spiro in self.spiros:
             # clear
             spiro.clear()
@@ -137,6 +159,8 @@ class SpiroAnimator:
             spiro.setparams(*rparams)
             # restart drawing
             spiro.restart()
+        # Done restarting
+        self.restarting = False
 
     # generate random parameters
     def genRandomParams(self):
@@ -164,7 +188,11 @@ class SpiroAnimator:
         if nComplete == len(self.spiros):
             self.restart()
         # call timer
-        turtle.ontimer(self.update, self.deltaT)
+        try:
+            turtle.ontimer(self.update, self.deltaT)
+        except:
+            print("Exception, exiting.")
+            exit(0)
 
     # toggle turtle on/off
     def toggleTurtles(self):
