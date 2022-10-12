@@ -57,8 +57,6 @@ def main():
     t = turtle.Turtle()
     t.hideturtle()
 
-    win = turtle.Screen()
-
     # draw 
     try:
         drawKochSF(-100, 0, 100, 0, t)
@@ -69,7 +67,7 @@ def main():
         return
 
     # wait for user to click on screen to exit
-    win.exitonclick()
+    turtle.Screen().exitonclick()
 
 # call main
 if __name__ == '__main__':
