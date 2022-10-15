@@ -118,7 +118,7 @@ def create_notes():
             continue
         # generate note 
         print("Generating note " + k + "...")
-        samples = generateNote(v)    
+        samples = generate_note(v)    
         # write to file 
         print("Writing " + file_name + "...")
         file_samples = open(file_name, "wb")
