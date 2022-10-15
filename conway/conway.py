@@ -11,13 +11,9 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import matplotlib.animation as animation
 
-ON = 255
-OFF = 0
-vals = [ON, OFF]
-
 def randomGrid(N):
     """returns a grid of NxN random values"""
-    return np.random.choice(vals, N*N, p=[0.2, 0.8]).reshape(N, N)
+    return np.random.choice([255, 0], N*N, p=[0.2, 0.8]).reshape(N, N)
 
 def addGlider(i, j, grid):
     """adds a glider with top left cell at (i, j)"""
@@ -68,12 +64,12 @@ def update(frameNum, img, grid, N):
                          grid[(i-1)%N, (j-1)%N] + grid[(i-1)%N, (j+1)%N] + 
                          grid[(i+1)%N, (j-1)%N] + grid[(i+1)%N, (j+1)%N])/255)
             # apply Conway's rules
-            if grid[i, j]  == ON:
+            if grid[i, j]  == 255:
                 if (total < 2) or (total > 3):
-                    newGrid[i, j] = OFF
+                    newGrid[i, j] = 0
             else:
                 if total == 3:
-                    newGrid[i, j] = ON
+                    newGrid[i, j] = 255
     # update data
     img.set_data(newGrid)
     grid[:] = newGrid[:]
@@ -96,8 +92,6 @@ def main():
     
     # set grid size
     N = 100
-    if args.N and int(args.N) > 8:
-        N = int(args.N)
         
     # set animation update interval
     updateInterval = 50
@@ -113,7 +107,10 @@ def main():
     elif args.gosper:
         grid = np.zeros(N*N).reshape(N, N)
         addGosperGliderGun(10, 10, grid)
-    else:
+    else: 
+        # set N if specified and valid
+        if args.N and int(args.N) > 8:
+            N = int(args.N)
         # populate grid with random on/off - more off than on
         grid = randomGrid(N)
 
