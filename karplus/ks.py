@@ -12,6 +12,9 @@ import time, random
 import wave, argparse 
 import numpy as np
 from collections import deque
+import matplotlib
+# to fix graph display issues on OS X
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import pyaudio
 
