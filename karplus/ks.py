@@ -72,8 +72,8 @@ def generateNote(freq):
                 fig.canvas.flush_events()
       
     # samples to 16-bit to string
-    # max value is 65534 for 16-bit
-    samples = np.array(samples * 65534, 'int16')
+    # max value is 32767 for 16-bit
+    samples = np.array(samples * 32767, 'int16')
     return samples.tobytes()
 
 # play a wav file
@@ -114,7 +114,8 @@ class NotePlayer:
             # clean up
             wf.close()
         except BaseException as err:
-            print(f"Exception! {err=}, {type(err)=}")
+            print(f"Exception! {err=}, {type(err)=}.\nExiting.")
+            exit(0)
 
     def playRandom(self):
         """play a random note"""
@@ -168,7 +169,7 @@ def main():
                 # rest - 1 to 8 beats
                 rest = np.random.choice([1, 2, 4, 8], 1, 
                                         p=[0.15, 0.7, 0.1, 0.05])
-                time.sleep(0.25)
+                time.sleep(0.25*rest[0])
             except KeyboardInterrupt:
                 exit()
   
