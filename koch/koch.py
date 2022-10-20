@@ -11,7 +11,6 @@ Website: electronut.in
 
 import turtle
 import math
-from unittest import expectedFailure
 
 # draw the recursive Koch snowflake
 def drawKochSF(x1, y1, x2, y2, t):
