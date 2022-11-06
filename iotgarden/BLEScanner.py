@@ -38,9 +38,9 @@ class BLEScanner:
         self.hcidump = None
         self.task = None
         # -----------------------------------------------
-        # peripheral white list - add your devices here!
+        # peripheral allow list - add your devices here!
         # -----------------------------------------------
-        self.whitelist = ["DE:74:03:D9:3D:8B"]
+        self.allowlist = ["DE:74:03:D9:3D:8B"]
     
     def start(self):
         """Start BLE scan"""
@@ -70,7 +70,7 @@ class BLEScanner:
         """starts the BlueZ tools required for scanning."""
         print("BLE scan started...")
         # reset device
-        ret = subprocess.run(['sudo', 'hciconfig', 'hci0', 'reset'], stdout=subprocess.DEVNULL)
+        ret = subprocess.run(['sudo', '-n', 'hciconfig', 'hci0', 'reset'], stdout=subprocess.DEVNULL)
         print(ret)
 
         # start hcitool process
@@ -83,8 +83,8 @@ class BLEScanner:
         
     def stop_scan(self):
         """stops BLE csan by killing BlueZ tools processes."""
-        subprocess.call(['sudo', 'kill', str(self.hcidump.pid), '-s', 'SIGINT'])
-        subprocess.call(['sudo', '-n', 'kill', str(self.hcitool.pid), '-s', "SIGINT"])       
+        subprocess.run(['sudo', 'kill', str(self.hcidump.pid), '-s', 'SIGINT'])
+        subprocess.run(['sudo', '-n', 'kill', str(self.hcitool.pid), '-s', "SIGINT"])       
         print("BLE scan stopped.")
 
     def parse_data(self, data):
@@ -98,8 +98,8 @@ class BLEScanner:
         # parse MACID
         x = [int(val, 16) for val in data.split()]
         macid = ":".join([format(val, '02x').upper() for val in x[7:13][::-1]])
-        # check if macid is in whitelist
-        if macid in self.whitelist:
+        # check if macid is in allowlist
+        if macid in self.allowlist:
             # look at 6th byte to see PDU type
             if (x[5] == 0x02): # ADV_IND     
                 print(data)

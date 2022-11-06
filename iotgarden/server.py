@@ -69,8 +69,7 @@ class IOTGServer:
 <body>
 <div id = "title">The IoT Garden </div>
 <hr/>
-<div id="sensors"></div>"""
-        strHTML += """
+<div id="sensors"></div>
 </body>
 </html>"""
         return strHTML
