@@ -1,0 +1,8 @@
+All images in this folder are Copyright (c) Mahesh Venkitachalam 2022. 
+
+Permission is hereby given to purchasers of the book Python Playground 2nd Edition, 
+No Starch Press, USA to use these images non-commercially for experimentation based on the 
+book's code examples.
+
+
+
