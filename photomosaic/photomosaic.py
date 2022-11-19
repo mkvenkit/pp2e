@@ -6,9 +6,8 @@ Creates a photomosaic given a target image and a folder of input images
 Author: Mahesh Venkitachalam
 """
 
-import sys, os, random, argparse
+import os, random, argparse
 from PIL import Image
-import imghdr
 import numpy as np
 from scipy.spatial import KDTree
 import timeit
@@ -76,23 +75,6 @@ def getImages(imageDir):
       # skip
       print("Invalid image: %s" % (filePath,))
   return images
-
-def getImageFilenames(imageDir):
-  """
-  given a directory of images, return a list of Image file names
-  """
-  files = os.listdir(imageDir)
-  filenames = []
-  for file in files:
-    filePath = os.path.abspath(os.path.join(imageDir, file))
-    try:
-      imgType = imghdr.what(filePath) 
-      if imgType:
-        filenames.append(filePath)
-    except:
-      # skip
-      print("Invalid image: %s" % (filePath,))
-  return filenames
 
 def getBestMatchIndex(input_avg, avgs):
   """
