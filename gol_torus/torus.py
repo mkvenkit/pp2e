@@ -326,15 +326,8 @@ class Torus:
 
         # bind VAO
         glBindVertexArray(self.vao)
-        # draw
-        glPointSize(5.0)
-        #glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
-        #glDrawArrays(GL_TRIANGLE_STRIP, 0, self.M * self.N)
-        #glDrawArrays(GL_POINTS, 0, 2 * self.M * self.N)
-        
+        # draw 
         glMultiDrawArrays(GL_TRIANGLE_STRIP, self.first_indices, self.counts, self.N)
-        #glDrawElements(GL_POINTS, self.num_indices, GL_UNSIGNED_SHORT, None)
-
         # unbind VAO
         glBindVertexArray(0)
 
