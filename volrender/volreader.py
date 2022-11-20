@@ -9,8 +9,6 @@ Utilities for reading 3D volumetric data as a 3D OpenGL texture.
 import os
 import numpy as np
 from PIL import Image
-
-import OpenGL
 from OpenGL.GL import *
 
 from scipy import misc
@@ -31,7 +29,7 @@ def loadVolume(dirName):
             imgData = np.array(img.getdata(), np.uint8)
 
             # check if all are of the same size
-            if count is 0:
+            if count == 0:
                 width, height = img.size[0], img.size[1] 
                 imgDataList.append(imgData)
             else:
@@ -39,7 +37,7 @@ def loadVolume(dirName):
                     imgDataList.append(imgData)
                 else:
                     print('mismatch')
-                    raise RunTimeError("image size mismatch")
+                    raise ("image size mismatch")
             count += 1
             #print img.size            
         except:
