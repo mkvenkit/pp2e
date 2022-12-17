@@ -19,6 +19,7 @@ from adafruit_ble import BLERadio
 from adafruit_ble.advertising import Advertisement, LazyObjectField
 from adafruit_ble.advertising.standard import ManufacturerData, ManufacturerDataField
 import _bleio
+import neopixel 
 
 # Derived from adafruit_ble class Advertisement
 class IOTGAdvertisement(Advertisement):
@@ -71,6 +72,10 @@ def main():
     # start BLE advertising 
     ble.start_advertising(advertisement, interval=BLE_ADV_INT)
 
+    # Set up NeoPixels and turn them all off.
+    pixels = neopixel.NeoPixel(board.NEOPIXEL, 1,
+                           brightness=0.1, auto_write=False)
+
     # main loop 
     while True:
         # print values - this will be available on serial 
@@ -85,6 +90,13 @@ def main():
         advertisement.md_field = ble.name[:5] + chr(T) + chr(H) + "00"
         # start advertising 
         ble.start_advertising(advertisement, interval=BLE_ADV_INT)
+        # blink neopixel LED
+        pixels.fill((255, 255, 0))
+        pixels.show()
+        time.sleep(0.1)
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        
         # sleep for 2 seconds 
         time.sleep(2)
 
