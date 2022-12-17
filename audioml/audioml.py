@@ -22,13 +22,13 @@ from tflite_runtime.interpreter import Interpreter
 from multiprocessing import Process, Queue
 
 VERBOSE_DEBUG = False
-CHUNK = 4096
+CHUNK = 4000                # choose a value divisible by SAMPLE_RATE
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 SAMPLE_RATE = 16000 
 RECORD_SECONDS = 1
 NCHUNKS = int((SAMPLE_RATE * RECORD_SECONDS) / CHUNK)
-ND = 2 * CHUNK * NCHUNKS
+ND = 2 * SAMPLE_RATE * RECORD_SECONDS
 NDH = ND // 2
 # device index of microphone
 dev_index = -1
