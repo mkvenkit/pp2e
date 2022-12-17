@@ -153,6 +153,8 @@ class BLEScanner:
         self.start_scan()
         # get data
         (macid, name, self.T, self.H) = self.parse_hcidump()
+        # correct temperature offset
+        self.T = self.T - 40
         print(self.T, self.H)
         # stop BLE scan 
         self.stop_scan()

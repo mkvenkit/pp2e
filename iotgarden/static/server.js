@@ -22,8 +22,8 @@ async function fetch_data() {
         strHTML = '<div class="thdata">';
         strHTML += '<span>' + devices[i].name + '(' + devices[i].macid 
             + '): </span>';
-        strHTML += '<span>T = ' + devices[i].T + ' C, </span>'; 
-        strHTML += '<span>H = ' + devices[i].H + ' % </span>'; 
+        strHTML += '<span>T = ' + devices[i].T + ' C (' + (9.0*devices[i].T/5.0 + 32.0) + ' F),</span>'; 
+        strHTML += '<span> H = ' + devices[i].H + ' % </span>'; 
         strHTML += '</div>'; // thdata
         // create image div 
         strHTML += '<div class="imdiv"><img src="image/' + 

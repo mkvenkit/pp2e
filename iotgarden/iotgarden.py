@@ -41,6 +41,7 @@ def main():
     # add arguments
     parser.add_argument('--createdb', action='store_true', required=False)
     parser.add_argument('--lsdb', action='store_true', required=False)
+    parser.add_argument('--hostname', dest='hostname', required=False)
     args = parser.parse_args()
 
     # set database name
@@ -58,13 +59,18 @@ def main():
         print("done. exiting.")
         exit(0)
 
+    # set hostname
+    hostname = 'iotgarden.local'
+    if (args.hostname):
+        hostname = args.hostname
+
     # create BLE scanner 
     bs = BLEScanner(dbname)
     # start BLE 
     bs.start()
 
     # create server
-    server = IOTGServer(dbname, 'iotgarden.local', 8080)
+    server = IOTGServer(dbname, hostname, 8080)
     # run server
     server.run()
 
