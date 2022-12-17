@@ -18,6 +18,7 @@ import adafruit_sht31d
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising import Advertisement, LazyObjectField
 from adafruit_ble.advertising.standard import ManufacturerData, ManufacturerDataField
+import _bleio
 
 # Derived from adafruit_ble class Advertisement
 class IOTGAdvertisement(Advertisement):
@@ -56,8 +57,12 @@ def main():
 
     # create custom advertisement object 
     advertisement = IOTGAdvertisement()
+    # append first 2 hex bytes (4 characters) of MAC address to name 
+    addr_bytes = _bleio.adapter.address.address_bytes
+    name = "{0:02x}{1:02x}".format(addr_bytes[5], addr_bytes[4]).upper()
     # set device name 
-    ble.name = "IOTG1" 
+    ble.name = "IG" + name    
+
     # set initial value 
     # will use only first 5 chars of name 
     advertisement.md_field = ble.name[:5] + "0000"
