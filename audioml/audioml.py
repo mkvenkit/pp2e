@@ -40,10 +40,11 @@ def list_devices():
     # get device list
     index = None
     nDevices = p.get_device_count()
-    print('Found %d devices:' % nDevices)
+    print('\naudioml.py:\nFound the following input devices:')
     for i in range(nDevices):
         deviceInfo = p.get_device_info_by_index(i)
-        print(deviceInfo)
+        if deviceInfo['maxInputChannels'] > 0:
+            print(deviceInfo['index'], deviceInfo['name'], deviceInfo['defaultSampleRate'])
     # clean up
     p.terminate()
 
