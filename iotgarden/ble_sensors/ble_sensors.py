@@ -82,7 +82,9 @@ def main():
         print("Temperature: {:.1f} C".format(bmp280.temperature))
         print("Humidity: {:.1f} %".format(sht31d.relative_humidity))
         # get sensor data         
-        T = int(bmp280.temperature)
+        # BMP280 range is -40 to 85 deg C, so add an offset to support 
+        # negative temperatures
+        T = int(bmp280.temperature) + 40
         H = int(sht31d.relative_humidity)
         # stop advertsing 
         ble.stop_advertising()
