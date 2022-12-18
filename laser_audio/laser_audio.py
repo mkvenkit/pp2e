@@ -187,7 +187,7 @@ def process_audio(filename):
 
     # open WAV file
     wf = wave.open(filename, 'rb')
-
+    
     # print audio details 
     print("SW = {}, NCh = {}, SR = {}".format(wf.getsampwidth(), 
         wf.getnchannels(), wf.getframerate()))
@@ -223,7 +223,7 @@ def process_audio(filename):
     # read audio data from WAV file 
     try:
         # loop till there is no data to be read
-        while data != '':
+        while len(data) > 0:
             # write stream to output
             stream.write(data)
             # ensure enough samples for FFT
@@ -292,8 +292,9 @@ def main():
         elif args.wav_file:
             print("starting laser audio display...")
             process_audio(args.wav_file)
-    except:
-        print("Exception! Exiting.")
+    except (Exception) as e:
+        print("Exception: {}".format(e))
+        print("Exiting.")
 
     # turn laser off
     laser_on(False)
