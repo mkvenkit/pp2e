@@ -253,7 +253,7 @@ def process_audio(filename):
             data = wf.readframes(CHUNK)
 
     except BaseException as err:
-        print("Unexpected {}, type={}}".format(err, type(err)))
+        print("Unexpected {}, type={}".format(err, type(err)))
 
     finally:
             print("Finally: Pyaudio clean up...")
