@@ -17,7 +17,6 @@ import glfw
 
 from torus import Torus
 from camera import OrbitCamera
-from axes import Axes3D
 from gol import GOL
 
 class RenderWindow:
@@ -65,9 +64,6 @@ class RenderWindow:
         r = 1.0
         self.torus = Torus(R, r, NX, NY)
         self.gol = GOL(NX, NY, glider)
-
-        # create Axes
-        self.axes = Axes3D(15.0)
 
         # create a camera
         self.camera = OrbitCamera(5.0, 10.0)
@@ -121,7 +117,6 @@ class RenderWindow:
                                           self.camera.up)
                 
                 # render
-                self.axes.render(pMatrix, mvMatrix)
                 self.torus.render(pMatrix, mvMatrix)
                 
                 # step 

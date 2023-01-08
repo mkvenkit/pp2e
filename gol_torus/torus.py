@@ -294,8 +294,6 @@ class Torus:
 
         # get colors 
         self.compute_colors()
-        #self.colors = np.ones((3 * self.N * (2 * self.M + 2), ), np.float32) # self.compute_colors()
-        #print(colors.shape)
 
         # bind VAO
         glBindVertexArray(self.vao)
