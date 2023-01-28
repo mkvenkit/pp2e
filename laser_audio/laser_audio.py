@@ -87,50 +87,6 @@ def test_motors():
         # turn laser off
         laser_on(False)
 
-
-def test_motors1():
-
-    # laser on 
-    laser_on(True)
-
-    # enable driver chip
-    GPIO.output(STBY, GPIO.HIGH)
-
-    # set motor direction for channel A
-    GPIO.output(AIN1, GPIO.HIGH)
-    GPIO.output(AIN2, GPIO.LOW)
-    # set motor direction for channel B
-    GPIO.output(BIN1, GPIO.HIGH)
-    GPIO.output(BIN2, GPIO.LOW)
-
-    # set PWM for channel A
-    freq = 100
-    duty_cycle = 30
-    pwm_a.start(duty_cycle)
-    time.sleep(2.0)
-    pwm_a.stop()
-
-    # brake A
-    GPIO.output(AIN1, GPIO.HIGH)
-    GPIO.output(AIN2, GPIO.HIGH)
-
-    # set PWM for channel B
-    freq = 100
-    duty_cycle = 30
-    pwm_b.start(duty_cycle)
-    time.sleep(2.0)
-    pwm_b.stop()
-
-    # brake B
-    GPIO.output(BIN1, GPIO.HIGH)
-    GPIO.output(BIN2, GPIO.HIGH)
-
-    # disable driver chip
-    GPIO.output(STBY, GPIO.LOW)
-
-    # laser on 
-    laser_on(False)
-
 def start_motors():
     """Start both motors"""
     # enable driver chip
@@ -284,8 +240,13 @@ def main():
         if args.test_laser:
             print("laser on...")
             laser_on(True)
-            while True:
-                time.sleep(1)
+            try: 
+                # wait in a loop
+                while True:
+                  time.sleep(0.1)
+            except:
+                # turn laser off
+                laser_on(False)
         elif args.test_motors:
             print("testing motors...")
             test_motors()
