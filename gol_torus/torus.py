@@ -17,7 +17,7 @@ import glfw
 
 
 strVS = """
-#version 330 core
+#version 410 core
 
 layout(location = 0) in vec3 aVert;
 layout(location = 1) in vec3 aColor;
@@ -39,7 +39,7 @@ void main() {
 }
 """
 strFS = """
-#version 330 core
+#version 410 core
 
 flat in vec3 vColor;
 in vec3 vNormal;
