@@ -18,7 +18,7 @@ import math, sys
 import raycube, glutils, volreader
 
 strVS = """
-#version 330 core
+#version 410 core
 
 layout(location = 1) in vec3 cubePos;
 layout(location = 2) in vec3 cubeCol;
@@ -38,7 +38,7 @@ void main()
 }
 """
 strFS = """
-#version 330 core
+#version 410 core
 
 in vec4 vColor;
 

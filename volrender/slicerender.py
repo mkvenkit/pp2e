@@ -15,7 +15,7 @@ import numpy, math, sys
 import volreader, glutils
 
 strVS = """
-# version 330 core
+# version 410 core
 
 in vec3 aVert;
 
@@ -47,7 +47,7 @@ void main() {
 }
 """
 strFS = """
-# version 330 core
+# version 410 core
 
 in vec3 texcoord;
 
