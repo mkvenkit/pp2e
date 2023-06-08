@@ -36,6 +36,7 @@ def timed_function(f, *args, **kwargs):
     return new_func
 
 # generate note of given frequency
+# (Uncomment line below when you need to time the function.)
 # @timed_function 
 def generate_note(freq):
     nSamples = SR
