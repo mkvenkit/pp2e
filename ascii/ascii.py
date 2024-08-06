@@ -4,6 +4,8 @@ ascii.py
 A python program that convert images to ASCII art.
 
 Author: Mahesh Venkitachalam
+Changer: Rex VanHorn
+--- Note: no changes yet
 """
 
 import sys, random, argparse
